@@ -1,0 +1,1098 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SarpSuraksha (सर्पसुरक्षा) - Snake Bite Emergency & AI Identification App</title>
+  <meta name="description" content="Download SarpSuraksha - 100% Offline Snake Bite Emergency Assistant, Antivenom Hospital Finder, 24/7 Rescuers Directory & AI Snake Identifier for India.">
+  <link rel="icon" type="image/png" href="/logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Noto+Sans+Devanagari:wght@400;600;700;900&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg-dark: #090d16;
+      --bg-card: #121827;
+      --bg-card-hover: #1c2438;
+      --primary: #ef4444;
+      --primary-hover: #dc2626;
+      --accent: #f59e0b;
+      --accent-green: #10b981;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --border: rgba(255, 255, 255, 0.08);
+      --border-red: rgba(239, 68, 68, 0.3);
+      --shadow-glow: 0 0 50px rgba(239, 68, 68, 0.2);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Plus Jakarta Sans', 'Noto Sans Devanagari', sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* Background FX */
+    .bg-grid {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-image: radial-gradient(circle at 50% 0%, rgba(239, 68, 68, 0.15), transparent 70%),
+                        linear-gradient(to right, rgba(255,255,255,0.02) 1px, transparent 1px),
+                        linear-gradient(to bottom, rgba(255,255,255,0.02) 1px, transparent 1px);
+      background-size: 100% 100%, 40px 40px, 40px 40px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Container */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Navigation */
+    nav {
+      height: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(12px);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(9, 13, 22, 0.85);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: var(--text-main);
+      font-weight: 800;
+      font-size: 1.25rem;
+    }
+
+    .brand img {
+      width: 42px;
+      height: 42px;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(239, 68, 68, 0.5);
+    }
+
+    .brand-sub {
+      font-size: 0.75rem;
+      color: var(--primary);
+      display: block;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--text-main);
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .lang-switcher {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      color: var(--text-main);
+      padding: 8px 14px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary), #b91c1c);
+      color: #fff;
+      padding: 12px 24px;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.95rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 4px 20px rgba(239, 68, 68, 0.4);
+      transition: transform 0.2s, box-shadow 0.2s;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 25px rgba(239, 68, 68, 0.6);
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--border);
+      color: var(--text-main);
+      padding: 12px 24px;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.95rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: background 0.2s;
+      cursor: pointer;
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.12);
+    }
+
+    /* Hero Section */
+    .hero {
+      padding: 80px 0 60px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+
+    .badge-emergency {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(239, 68, 68, 0.12);
+      border: 1px solid var(--border-red);
+      color: #fca5a5;
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      margin-bottom: 24px;
+    }
+
+    .badge-pulse {
+      width: 8px;
+      height: 8px;
+      background-color: var(--primary);
+      border-radius: 50%;
+      box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7);
+      animation: pulse 1.6s infinite;
+    }
+
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); }
+      70% { box-shadow: 0 0 0 10px rgba(239, 68, 68, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+    }
+
+    .hero-title {
+      font-size: 3.2rem;
+      font-weight: 900;
+      line-height: 1.15;
+      margin-bottom: 20px;
+      letter-spacing: -0.5px;
+    }
+
+    .hero-title span {
+      background: linear-gradient(135deg, #f8fafc 30%, #fca5a5 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-title .highlight {
+      background: linear-gradient(135deg, #ef4444, #f59e0b);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-desc {
+      font-size: 1.15rem;
+      color: var(--text-muted);
+      margin-bottom: 32px;
+      line-height: 1.7;
+    }
+
+    .hero-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-bottom: 40px;
+    }
+
+    /* Trust Stats Grid */
+    .trust-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    .stat-card h3 {
+      font-size: 1.5rem;
+      font-weight: 900;
+      color: var(--text-main);
+    }
+
+    .stat-card p {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    /* Phone Mockup Frame */
+    .phone-mockup-wrapper {
+      position: relative;
+      display: flex;
+      justify-content: center;
+    }
+
+    .phone-glow {
+      position: absolute;
+      width: 320px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(239,68,68,0.35) 0%, transparent 70%);
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      filter: blur(40px);
+      z-index: 0;
+    }
+
+    .phone-frame {
+      position: relative;
+      z-index: 1;
+      width: 320px;
+      height: 640px;
+      background: #0f172a;
+      border: 12px solid #1e293b;
+      border-radius: 44px;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255,255,255,0.1);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .phone-notch {
+      width: 120px;
+      height: 24px;
+      background: #1e293b;
+      border-bottom-left-radius: 14px;
+      border-bottom-right-radius: 14px;
+      margin: 0 auto;
+      z-index: 10;
+    }
+
+    .phone-screen {
+      flex: 1;
+      background: #090d16;
+      padding: 16px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    /* App Preview Content Inside Phone */
+    .app-screen-tab {
+      display: none;
+    }
+
+    .app-screen-tab.active {
+      display: block;
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .mock-header {
+      background: #dc2626;
+      padding: 12px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: #fff;
+      font-weight: 800;
+      font-size: 0.85rem;
+    }
+
+    .mock-card {
+      background: #1e293b;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 14px;
+      padding: 14px;
+      margin-top: 10px;
+      color: #fff;
+    }
+
+    .mock-badge {
+      display: inline-block;
+      padding: 3px 8px;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      font-weight: 800;
+    }
+
+    .mock-btn {
+      width: 100%;
+      background: #dc2626;
+      color: #fff;
+      border: none;
+      padding: 10px;
+      border-radius: 10px;
+      font-weight: 800;
+      font-size: 0.85rem;
+      margin-top: 10px;
+      text-align: center;
+    }
+
+    /* Screen Selector Tabs Under Phone */
+    .mock-tab-buttons {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      margin-top: 20px;
+    }
+
+    .tab-pill {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .tab-pill.active, .tab-pill:hover {
+      background: var(--primary);
+      color: #fff;
+      border-color: var(--primary);
+    }
+
+    /* Section Styling */
+    section {
+      padding: 90px 0;
+      border-top: 1px solid var(--border);
+    }
+
+    .section-header {
+      text-align: center;
+      max-width: 680px;
+      margin: 0 auto 60px;
+    }
+
+    .section-tag {
+      color: var(--primary);
+      font-weight: 800;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin-bottom: 12px;
+      display: block;
+    }
+
+    .section-title {
+      font-size: 2.4rem;
+      font-weight: 900;
+      margin-bottom: 16px;
+      line-height: 1.25;
+    }
+
+    .section-desc {
+      color: var(--text-muted);
+      font-size: 1.05rem;
+    }
+
+    /* Feature Grid Cards */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+    }
+
+    .feature-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 30px;
+      transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-6px);
+      border-color: var(--border-red);
+      box-shadow: 0 12px 30px rgba(239, 68, 68, 0.15);
+    }
+
+    .feature-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 16px;
+      background: rgba(239, 68, 68, 0.12);
+      border: 1px solid var(--border-red);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+    }
+
+    .feature-card h3 {
+      font-size: 1.25rem;
+      font-weight: 800;
+    }
+
+    .feature-card p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    /* Snakes Showcase Gallery */
+    .snake-gallery {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .snake-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      overflow: hidden;
+      transition: transform 0.3s;
+    }
+
+    .snake-card:hover {
+      transform: translateY(-4px);
+    }
+
+    .snake-card img {
+      width: 100%;
+      height: 190px;
+      object-fit: cover;
+    }
+
+    .snake-info {
+      padding: 20px;
+    }
+
+    .snake-info h4 {
+      font-size: 1.15rem;
+      font-weight: 800;
+      margin-bottom: 4px;
+    }
+
+    .snake-info p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      font-style: italic;
+      margin-bottom: 12px;
+    }
+
+    .snake-badge {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-size: 0.75rem;
+      font-weight: 800;
+    }
+
+    .snake-badge.venomous {
+      background: rgba(239, 68, 68, 0.2);
+      color: #fca5a5;
+      border: 1px solid rgba(239, 68, 68, 0.4);
+    }
+
+    .snake-badge.non-venomous {
+      background: rgba(16, 185, 129, 0.2);
+      color: #6ee7b7;
+      border: 1px solid rgba(16, 185, 129, 0.4);
+    }
+
+    /* Download Banner Card */
+    .download-banner {
+      background: linear-gradient(135deg, #1e1b4b 0%, #1e293b 100%);
+      border: 1px solid rgba(239, 68, 68, 0.3);
+      border-radius: 32px;
+      padding: 60px 40px;
+      text-align: center;
+      box-shadow: var(--shadow-glow);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .download-banner h2 {
+      font-size: 2.6rem;
+      font-weight: 900;
+      margin-bottom: 16px;
+    }
+
+    .download-banner p {
+      color: var(--text-muted);
+      font-size: 1.1rem;
+      max-width: 600px;
+      margin: 0 auto 36px;
+    }
+
+    .download-options {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .qr-box {
+      margin-top: 30px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .qr-code {
+      width: 140px;
+      height: 140px;
+      background: #fff;
+      padding: 10px;
+      border-radius: 16px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+    }
+
+    .qr-code svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    /* Modal Popup for Installation */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(8px);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .modal.active {
+      display: flex;
+    }
+
+    .modal-content {
+      background: var(--bg-card);
+      border: 1px solid var(--border-red);
+      border-radius: 24px;
+      max-width: 480px;
+      width: 100%;
+      padding: 32px;
+      position: relative;
+      box-shadow: var(--shadow-glow);
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 20px; right: 20px;
+      background: rgba(255,255,255,0.1);
+      border: none;
+      color: #fff;
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 1.2rem;
+    }
+
+    .modal-title {
+      font-size: 1.5rem;
+      font-weight: 900;
+      margin-bottom: 12px;
+    }
+
+    .install-steps {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin: 20px 0;
+    }
+
+    .step-item {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+    }
+
+    .step-num {
+      width: 28px; height: 28px;
+      background: var(--primary);
+      color: #fff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 0.85rem;
+      flex-shrink: 0;
+    }
+
+    /* Footer */
+    footer {
+      padding: 40px 0;
+      border-top: 1px solid var(--border);
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    /* Top Creator Banner */
+    .top-creator-bar {
+      background: linear-gradient(90deg, #7f1d1d 0%, #dc2626 50%, #7f1d1d 100%);
+      color: #ffffff;
+      text-align: center;
+      padding: 10px 16px;
+      font-size: 0.92rem;
+      font-weight: 800;
+      border-bottom: 1px solid rgba(255,255,255,0.2);
+      letter-spacing: 0.3px;
+      position: relative;
+      z-index: 101;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.5);
+    }
+    .top-creator-bar span.name {
+      color: #fef08a;
+      font-weight: 900;
+    }
+
+    /* Responsive */
+    @media (max-width: 992px) {
+      .hero {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+      .hero-buttons {
+        justify-content: center;
+      }
+      .trust-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .features-grid, .snake-gallery {
+        grid-template-columns: 1fr;
+      }
+      .nav-links {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Top Creator Announcement Bar -->
+  <div class="top-creator-bar">
+    🎓 Created by S.Y. B.Sc. C.S. Student <span class="name">Ayesha Gafur Sayyad</span> from <strong>Shri Dnyaneshwar Mahavidyalaya, Newasa</strong>
+  </div>
+
+  <div class="bg-grid"></div>
+
+  <!-- Navigation Bar -->
+  <nav>
+    <div class="container" style="display: flex; align-items: center; justify-content: space-between; width: 100%;">
+      <a href="#" class="brand">
+        <img src="/logo.png" alt="SarpSuraksha Logo">
+        <div>
+          <span>सर्पसुरक्षा SarpSuraksha</span>
+          <span class="brand-sub">Emergency Assistant</span>
+        </div>
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="#features" data-en="Features" data-hi="सुविधाएं" data-mr="वैशिष्ट्ये">Features</a></li>
+        <li><a href="#emergency" data-en="SOS Emergency" data-hi="आपातकालीन" data-mr="आपत्कालीन">SOS Emergency</a></li>
+        <li><a href="#hospitals" data-en="Hospitals" data-hi="अस्पताल" data-mr="रुग्णालये">Hospitals</a></li>
+        <li><a href="#snakes" data-en="Snake Wiki" data-hi="साँप प्रजाति" data-mr="साप ओळख">Snake Wiki</a></li>
+      </ul>
+
+      <div class="nav-right">
+        <button class="lang-switcher" onclick="toggleLanguage()">
+          🌐 <span id="langLabel">Marathi / हिंदी</span>
+        </button>
+        <button class="btn-primary" onclick="openDownloadModal()">
+          📥 <span data-en="Download App" data-hi="ऐप डाउनलोड करें" data-mr="ॲप डाउनलोड करा">Download App</span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <header class="hero container">
+    <div class="hero-left">
+      <div class="badge-emergency">
+        <div class="badge-pulse"></div>
+        <span data-en="India's #1 Offline Snake Emergency App" data-hi="भारत का #1 ऑफलाइन सर्पदंश सहायता ऐप" data-mr="भारतातील #१ ऑफलाइन सर्पदंश आपत्कालीन ॲप">India's #1 Offline Snake Emergency App</span>
+      </div>
+
+      <h1 class="hero-title">
+        <span data-en="Fast Action Saves Lives." data-hi="त्वरित सहायता, बचाए जान।" data-mr="त्वरित मदत, वाचवेल जीव.">Fast Action Saves Lives.</span><br>
+        <span class="highlight" data-en="Offline Snake Emergency & AI Guide." data-hi="ऑफलाइन सर्पदंश गाइड व AI." data-mr="ऑफलाइन सर्पदंश आपत्कालीन ॲप.">Offline Snake Emergency & AI Guide.</span>
+      </h1>
+
+      <p class="hero-desc" data-en="Designed for rural & urban India. Works 100% offline without internet to locate antivenom hospitals, 24/7 district rescuers, dynamic first aid, and instant snake identification." data-hi="भारत के ग्रामीण व शहरी क्षेत्रों के लिए विशेष डिज़ाइन। बिना इंटरनेट के निकटतम एंटीवेनम अस्पताल, जिला सर्पमित्रों के संपर्क, प्राथमिक उपचार व साँप पहचान।">
+        Designed for rural & urban India. Works 100% offline without internet to locate antivenom hospitals, 24/7 district rescuers, dynamic first aid, and instant snake identification.
+      </p>
+
+      <div class="hero-buttons">
+        <button class="btn-primary" onclick="openDownloadModal()">
+          📥 <span data-en="Download APK (Android)" data-hi="APK डाउनलोड करें (एंड्रॉइड)" data-mr="APK डाउनलोड करा (Android)">Download APK (Android)</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Phone Mockup Preview -->
+    <div class="hero-right">
+      <div class="phone-mockup-wrapper">
+        <div class="phone-glow"></div>
+        <div class="phone-frame">
+          <div class="phone-notch"></div>
+          <div class="phone-screen">
+            
+            <!-- Screen 1: Emergency SOS -->
+            <div class="app-screen-tab active" id="tab-sos">
+              <div class="mock-header">
+                <span>🚨 EMERGENCY BITE REPORT</span>
+                <span class="mock-badge" style="background:#fef08a; color:#854d0e;">03:45</span>
+              </div>
+              <div class="mock-card" style="border-color:#ef4444;">
+                <div style="font-weight:900; color:#fca5a5;">EMERGENCY STATUS: CRITICAL</div>
+                <div style="font-size:0.75rem; color:#cbd5e1; margin-top:4px;">📍 Bite Location: Left Foot / Ankle</div>
+                <div style="font-size:0.75rem; color:#cbd5e1;">🕒 Exact Save Time: 02:35 AM</div>
+              </div>
+              <div class="mock-card">
+                <div style="font-weight:800; font-size:0.8rem;">🛠️ Dynamic First Aid Advice:</div>
+                <div style="font-size:0.75rem; color:#94a3b8; margin-top:4px;">• Keep bitten limb still & below heart level</div>
+                <div style="font-size:0.75rem; color:#94a3b8;">• Remove rings & bangles before swelling</div>
+              </div>
+              <button class="mock-btn" style="background:#dc2626;">📞 CALL 108 AMBULANCE NOW</button>
+            </div>
+
+            <!-- Screen 2: Hospitals -->
+            <div class="app-screen-tab" id="tab-hospitals">
+              <div class="mock-header" style="background:#2563eb;">
+                <span>🏥 NEARBY HOSPITALS</span>
+                <span class="mock-badge" style="background:#bbf7d0; color:#14532d;">10 Found</span>
+              </div>
+              <div class="mock-card">
+                <div style="font-weight:900;">🏛️ District Civil Hospital Pune</div>
+                <div style="font-size:0.75rem; color:#10b981; margin-top:2px;">✅ 24/7 Anti-Snake Venom Available</div>
+                <div style="font-size:0.75rem; color:#cbd5e1; margin-top:4px;">📞 Contact: 020-26126600</div>
+                <div style="font-size:0.75rem; color:#cbd5e1;">📍 Distance: 2.4 km away</div>
+              </div>
+              <div class="mock-card">
+                <div style="font-weight:900;">🏛️ Rural Hospital Junnar</div>
+                <div style="font-size:0.75rem; color:#10b981;">✅ Stock: Polyvalent ASV Serum</div>
+                <div style="font-size:0.75rem; color:#cbd5e1;">📞 Contact: 02135-222045</div>
+              </div>
+            </div>
+
+            <!-- Screen 3: AI Identifier -->
+            <div class="app-screen-tab" id="tab-ai">
+              <div class="mock-header" style="background:#059669;">
+                <span>🐍 AI SNAKE IDENTIFIER</span>
+                <span class="mock-badge" style="background:#a7f3d0; color:#064e3b;">Offline</span>
+              </div>
+              <div class="mock-card" style="text-align:center;">
+                <img src="/public/Snake Images/035_spectacled_cobra.jpg" style="width:100%; height:110px; object-fit:cover; border-radius:8px;">
+                <div style="font-weight:900; margin-top:6px; color:#fef08a;">नाग (Indian Cobra)</div>
+                <div style="font-size:0.75rem; font-style:italic; color:#cbd5e1;">Naja naja</div>
+                <span class="mock-badge" style="background:#dc2626; color:#fff; margin-top:6px;">🔴 HIGHLY VENOMOUS</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab Buttons Under Phone -->
+      <div class="mock-tab-buttons">
+        <button class="tab-pill active" onclick="switchMockTab('sos')">🚨 SOS Emergency</button>
+        <button class="tab-pill" onclick="switchMockTab('hospitals')">🏥 Hospitals</button>
+        <button class="tab-pill" onclick="switchMockTab('ai')">🐍 AI Identifier</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Features Grid -->
+  <section id="features" class="container">
+    <div class="section-header">
+      <span class="section-tag" data-en="Core Capabilities" data-hi="मुख्य विशेषताएं" data-mr="मुख्य वैशिष्ट्ये">Core Capabilities</span>
+      <h2 class="section-title" data-en="Engineered for Life-Saving Emergencies" data-hi="जीवन बचाने के लिए विशेष निर्मित" data-mr="जीव वाचवण्यासाठी तयार केलेले ॲप">Engineered for Life-Saving Emergencies</h2>
+      <p class="section-desc" data-en="Packed with high-reliability tools designed to function without internet connectivity." data-hi="बिना इंटरनेट कनेक्टिविटी के तुरंत काम करने वाले उच्च-विश्वसनीयता वाले फीचर्स।">Packed with high-reliability tools designed to function without internet connectivity.</p>
+    </div>
+
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">🚨</div>
+        <h3 data-en="1-Tap 108 SOS & Timer" data-hi="1-टैप 108 आपातकालीन सेवा" data-mr="१-टॅप १०८ आपत्कालीन कॉल">1-Tap 108 SOS & Timer</h3>
+        <p data-en="Directly call 108 Ambulance, track bite elapsed timer, pinpoint bite body location on interactive anatomical map, and log exact clock save time." data-hi="108 एम्बुलेंस को डायरेक्ट कॉल करें, काटने के स्थान को शरीर के मैप पर अंकित करें और सटीक घड़ी का समय सेव करें।">Directly call 108 Ambulance, track bite elapsed timer, pinpoint bite body location on interactive anatomical map, and log exact clock save time.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">🏥</div>
+        <h3 data-en="Offline Antivenom Hospitals" data-hi="ऑफलाइन एंटीवेनम अस्पताल" data-mr="ऑफलाइन अँटीव्हेनम रुग्णालये">Offline Antivenom Hospitals</h3>
+        <p data-en="Full offline directory of government civil hospitals, sub-district medical centers with direct real hospital contact numbers across Maharashtra." data-hi="महाराष्ट्र के सभी जिलों के सरकारी अस्पतालों और स्वास्थ्य केंद्रों के डायरेक्ट फोन नंबर और पते का ऑफ़लाइन डेटाबेस।">Full offline directory of government civil hospitals, sub-district medical centers with direct real hospital contact numbers across Maharashtra.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">🐍</div>
+        <h3 data-en="Offline Snake Traits AI" data-hi="स्मार्ट सर्प पहचान प्रणाली" data-mr="स्मार्ट साप ओळख प्रणाली">Offline Snake Traits AI</h3>
+        <p data-en="Identify snakes offline by color patterns and head shape. Includes high-resolution reference images, toxicity levels, and immediate protocols." data-hi="रंग और सिर के आकार से साँपों की पहचान करें। इसमें असली फोटो, ज़हर का प्रकार और सावधानियां शामिल हैं।">Identify snakes offline by color patterns and head shape. Includes high-resolution reference images, toxicity levels, and immediate protocols.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">📞</div>
+        <h3 data-en="24/7 Verified Rescuers" data-hi="24/7 जिला सर्पमित्र नेटवर्क" data-mr="२४/७ जिल्हा सर्पमित्र नेटवर्क">24/7 Verified Rescuers</h3>
+        <p data-en="Access real phone numbers of certified herpetologists and snake catchers listed district-wise (Pune, Nashik, Thane, Ahmednagar, Satara, Nagpur, etc.)." data-hi="महाराष्ट्र के हर जिले के प्रमाणित सर्पमित्रों के डायरेक्ट मोबाइल नंबर।">Access real phone numbers of certified herpetologists and snake catchers listed district-wise (Pune, Nashik, Thane, Ahmednagar, Satara, Nagpur, etc.).</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">🛠️</div>
+        <h3 data-en="Dynamic First Aid Guidance" data-hi="लक्षण-आधारित प्राथमिक उपचार" data-mr="लक्षणांनुसार प्रथमोपचार सल्ला">Dynamic First Aid Guidance</h3>
+        <p data-en="Generates specific step-by-step first aid advice tailored to checked symptoms (difficulty breathing, unconsciousness, bleeding, or swelling)." data-hi="चुने गए लक्षणों (साँस में तकलीफ, बेहोशी, सूजन या खून बहना) के आधार पर सटीक प्राथमिक उपचार गाइड।">Generates specific step-by-step first aid advice tailored to checked symptoms (difficulty breathing, unconsciousness, bleeding, or swelling).</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">💡</div>
+        <h3 data-en="Myths vs Facts & Guides" data-hi="मिथक बनाम सत्य एवं गाइड" data-mr="अफवा विरुद्ध तथ्य व मार्गदर्शक">Myths vs Facts & Guides</h3>
+        <p data-en="Bust dangerous traditional myths (cutting wound, sucking venom, tourniquets) with medically approved Do's and Don'ts." data-hi="खतरनाक पारंपरिक गलत धारणाओं (चीरा लगाना, ज़हर चूसना, घट्ट पट्टी) को खारिज करने वाले वैज्ञानिक तथ्य।">Bust dangerous traditional myths (cutting wound, sucking venom, tourniquets) with medically approved Do's and Donists.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Snake Wiki Gallery Showcase -->
+  <section id="snakes" class="container">
+    <div class="section-header">
+      <span class="section-tag" data-en="Species Knowledge" data-hi="प्रजाति जानकारी" data-mr="प्रजातींची माहिती">Species Knowledge</span>
+      <h2 class="section-title" data-en="Big 4 & Common Snakes of India" data-hi="भारत के मुख्य ज़हरीले व बिना ज़हर वाले साँप" data-mr="भारतातील प्रमुख विषारी व बिनविषारी साप">Big 4 & Common Snakes of India</h2>
+    </div>
+
+    <div class="snake-gallery">
+      <div class="snake-card">
+        <img src="/public/Snake Images/035_spectacled_cobra.jpg" alt="Spectacled Cobra">
+        <div class="snake-info">
+          <h4 data-en="Indian Cobra / Spectacled Cobra" data-hi="नाग / भारतीय कोबरा" data-mr="नाग (Spectacled Cobra)">Indian Cobra / Spectacled Cobra</h4>
+          <p>Naja naja</p>
+          <span class="snake-badge venomous">🔴 HIGHLY VENOMOUS (Neurotoxic)</span>
+        </div>
+      </div>
+
+      <div class="snake-card">
+        <img src="/public/Snake Images/002_common_krait.jpg" alt="Common Krait">
+        <div class="snake-info">
+          <h4 data-en="Common Krait" data-hi="मनयार / करैत" data-mr="मण्यार (Common Krait)">Common Krait</h4>
+          <p>Bungarus caeruleus</p>
+          <span class="snake-badge venomous">🔴 DEADLY VENOMOUS (Neurotoxic)</span>
+        </div>
+      </div>
+
+      <div class="snake-card">
+        <img src="/public/Snake Images/003_russell_s_viper.jpg" alt="Russell's Viper">
+        <div class="snake-info">
+          <h4 data-en="Russell's Viper" data-hi="घोणस / रसेल वाइपर" data-mr="घोणस (Russell's Viper)">Russell's Viper</h4>
+          <p>Daboia russelii</p>
+          <span class="snake-badge venomous">🔴 HIGHLY VENOMOUS (Vasculotoxic)</span>
+        </div>
+      </div>
+
+      <div class="snake-card">
+        <img src="/public/Snake Images/004_saw_scaled_viper.jpg" alt="Saw-scaled Viper">
+        <div class="snake-info">
+          <h4 data-en="Saw-scaled Viper" data-hi="फुरसा / सॉ-स्केल्ड वाइपर" data-mr="फुरसे (Saw-scaled Viper)">Saw-scaled Viper</h4>
+          <p>Echis carinatus</p>
+          <span class="snake-badge venomous">🔴 VENOMOUS (Hemotoxic)</span>
+        </div>
+      </div>
+
+      <div class="snake-card">
+        <img src="/public/Snake Images/046_common_rat_snake.jpg" alt="Common Rat Snake">
+        <div class="snake-info">
+          <h4 data-en="Common Rat Snake (Dhaman)" data-hi="धामन (रैट स्नेक)" data-mr="धामण (Common Rat Snake)">Common Rat Snake (Dhaman)</h4>
+          <p>Ptyas mucosa</p>
+          <span class="snake-badge non-venomous">🟢 NON-VENOMOUS (Harmless)</span>
+        </div>
+      </div>
+
+      <div class="snake-card">
+        <img src="/public/Snake Images/047_green_vine_snake.jpg" alt="Green Vine Snake">
+        <div class="snake-info">
+          <h4 data-en="Green Vine Snake" data-hi="हरहरा / ग्रीन वाइन स्नेक" data-mr="हरणटोळ (Green Vine Snake)">Green Vine Snake</h4>
+          <p>Ahaetulla nasuta</p>
+          <span class="snake-badge non-venomous">🟢 MILDLY VENOMOUS (Harmless)</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Download Banner -->
+  <section class="container" style="border:none; padding:40px 0 90px;">
+    <div class="download-banner">
+      <h2 data-en="Protect Yourself & Your Loved Ones Today" data-hi="आज ही अपने परिवार को सुरक्षित करें" data-mr="आजच स्वतःला व कुटुंबाला सुरक्षित करा">Protect Yourself & Your Loved Ones Today</h2>
+      <p data-en="Download the SarpSuraksha APK completely free. Install once and stay protected offline anywhere across India." data-hi="सर्पसुरक्षा ऐप बिल्कुल फ्री डाउनलोड करें। एक बार इंस्टॉल करें और बिना इंटरनेट के भी सुरक्षित रहें।">Download the SarpSuraksha APK completely free. Install once and stay protected offline anywhere across India.</p>
+
+      <div class="download-options">
+        <button class="btn-primary" style="font-size: 1.1rem; padding: 16px 36px;" onclick="openDownloadModal()">
+          📥 <span data-en="Download SarpSuraksha APK" data-hi="सर्पसुरक्षा APK डाउनलोड करें" data-mr="सर्पसुरक्षा APK डाउनलोड करा">Download SarpSuraksha APK</span>
+        </button>
+      </div>
+
+      <div class="qr-box">
+        <div class="qr-code">
+          <!-- Inline SVG QR Code -->
+          <svg viewBox="0 0 100 100">
+            <path fill="#0f172a" d="M0,0 h30 v30 h-30 z M40,0 h20 v10 h-20 z M70,0 h30 v30 h-30 z M10,10 h10 v10 h-10 z M80,10 h10 v10 h-10 z M0,40 h10 v20 h-10 z M20,40 h20 v10 h-20 z M50,40 h10 v30 h-10 z M70,40 h20 v10 h-20 z M0,70 h30 v30 h-30 z M10,80 h10 v10 h-10 z M40,80 h30 v10 h-30 z M80,70 h20 v30 h-20 z M90,80 h10 v10 h-10 z"/>
+          </svg>
+        </div>
+        <span style="font-size:0.85rem; color:var(--text-muted); font-weight:700;">📱 Scan to Install on Mobile</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Download & Installation Modal -->
+  <div class="modal" id="downloadModal">
+    <div class="modal-content">
+      <button class="modal-close" onclick="closeDownloadModal()">✕</button>
+      <h3 class="modal-title" data-en="Download SarpSuraksha" data-hi="सर्पसुरक्षा डाउनलोड करें" data-mr="सर्पसुरक्षा डाउनलोड करा">Download SarpSuraksha</h3>
+      <p style="color:var(--text-muted); font-size:0.9rem;">Version 1.0.0 • Free & Safe • 100% Offline</p>
+
+      <div class="install-steps">
+        <div class="step-item">
+          <div class="step-num">1</div>
+          <div>
+            <strong data-en="Download APK File" data-hi="APK फ़ाइल डाउनलोड करें" data-mr="APK फाईल डाउनलोड करा">Download APK File</strong>
+            <p style="font-size:0.8rem; color:var(--text-muted);">Click button below to start direct download of Android APK.</p>
+          </div>
+        </div>
+
+        <div class="step-item">
+          <div class="step-num">2</div>
+          <div>
+            <strong data-en="Allow Unknown Sources" data-hi="अज्ञात स्रोत सक्षम करें" data-mr="अनोखे स्त्रोत सक्षम करा">Allow Unknown Sources</strong>
+            <p style="font-size:0.8rem; color:var(--text-muted);">If prompted, enable 'Install from Unknown Sources' in Android settings.</p>
+          </div>
+        </div>
+
+        <div class="step-item">
+          <div class="step-num">3</div>
+          <div>
+            <strong data-en="Open & Stay Protected" data-hi="ऐप खोलें और सुरक्षित रहें" data-mr="ॲप उघडा आणि सुरक्षित रहा">Open & Stay Protected</strong>
+            <p style="font-size:0.8rem; color:var(--text-muted);">App functions 100% offline without any internet connection.</p>
+          </div>
+        </div>
+      </div>
+
+      <a href="./APK/Snake%20Bite%20Emergency%20App.apk" download="Snake_Bite_Emergency_App.apk" class="btn-primary" style="width:100%; justify-content:center; padding:14px;">
+        📥 <span data-en="Start APK Download (115 MB)" data-hi="APK डाउनलोड शुरू करें (115 MB)" data-mr="APK डाउनलोड सुरू करा (115 MB)">Start APK Download (115 MB)</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <p>🚨 Emergency Helpline: <strong>108 Ambulance</strong> | 🌲 Forest Department: <strong>1926</strong></p>
+      <p style="margin-top:12px; font-size:0.9rem; color:#fca5a5; font-weight:800;">
+        🎓 Created by S.Y. B.Sc. C.S. Student Ayesha Gafur Sayyad from Shri Dnyaneshwar Mahavidyalaya, Newasa
+      </p>
+      <p style="margin-top:8px; font-size:0.8rem;">© 2026 Snake Bite Emergency (सर्पसुरक्षा) App. Designed for life-saving assistance in emergency situations.</p>
+    </div>
+  </footer>
+
+  <!-- JavaScript for Language & Tabs -->
+  <script>
+    let currentLang = 'mr'; // Default Marathi / Hindi toggle
+
+    function toggleLanguage() {
+      if (currentLang === 'en') {
+        currentLang = 'hi';
+        document.getElementById('langLabel').innerText = 'English / मराठी';
+      } else if (currentLang === 'hi') {
+        currentLang = 'mr';
+        document.getElementById('langLabel').innerText = 'English / हिंदी';
+      } else {
+        currentLang = 'en';
+        document.getElementById('langLabel').innerText = 'मराठी / हिंदी';
+      }
+
+      document.querySelectorAll('[data-en]').forEach(el => {
+        const text = el.getAttribute(`data-${currentLang}`);
+        if (text) el.innerText = text;
+      });
+    }
+
+    function switchMockTab(tabName) {
+      document.querySelectorAll('.app-screen-tab').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.tab-pill').forEach(el => el.classList.remove('active'));
+
+      document.getElementById(`tab-${tabName}`).classList.add('active');
+      event.target.classList.add('active');
+    }
+
+    function openDownloadModal() {
+      document.getElementById('downloadModal').classList.add('active');
+    }
+
+    function closeDownloadModal() {
+      document.getElementById('downloadModal').classList.remove('active');
+    }
+
+    // Close modal on outside click
+    window.onclick = function(e) {
+      const modal = document.getElementById('downloadModal');
+      if (e.target === modal) {
+        closeDownloadModal();
+      }
+    };
+  </script>
+</body>
+</html>
