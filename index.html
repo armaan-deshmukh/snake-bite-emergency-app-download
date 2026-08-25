@@ -848,7 +848,7 @@
                 <span class="screen-badge" style="background:#a7f3d0; color:#064e3b;">Offline</span>
               </div>
               <div class="screen-card" style="text-align:center;">
-                <img src="Snake%20Images/035_spectacled_cobra.jpg" onerror="if(!this.dataset.t){this.dataset.t=1;this.src='public/Snake%20Images/035_spectacled_cobra.jpg'}" style="width:100%; height:110px; object-fit:cover; border-radius:8px;">
+                <img src="public/Snake Images/035_spectacled_cobra.jpg" style="width:100%; height:110px; object-fit:cover; border-radius:8px;">
                 <div style="font-weight:900; margin-top:6px; color:#fef08a;">नाग (Indian Cobra)</div>
                 <div style="font-size:0.75rem; font-style:italic; color:#cbd5e1;">Naja naja</div>
                 <span class="screen-badge" style="background:#dc2626; color:#fff; margin-top:6px;">🔴 HIGHLY VENOMOUS</span>
@@ -923,7 +923,7 @@
 
     <div class="snake-grid">
       <div class="snake-card">
-        <img src="Snake%20Images/035_spectacled_cobra.jpg" onerror="if(!this.dataset.t){this.dataset.t=1;this.src='public/Snake%20Images/035_spectacled_cobra.jpg'}" alt="Indian Cobra">
+        <img src="public/Snake Images/035_spectacled_cobra.jpg" alt="Indian Cobra">
         <div class="snake-details">
           <h4 data-en="Indian Cobra / Spectacled Cobra" data-hi="नाग / भारतीय कोबरा" data-mr="नाग (Spectacled Cobra)">Indian Cobra / Spectacled Cobra</h4>
           <p>Naja naja</p>
@@ -932,7 +932,7 @@
       </div>
 
       <div class="snake-card">
-        <img src="Snake%20Images/002_common_krait.jpg" onerror="if(!this.dataset.t){this.dataset.t=1;this.src='public/Snake%20Images/002_common_krait.jpg'}" alt="Common Krait">
+        <img src="public/Snake Images/002_common_krait.jpg" alt="Common Krait">
         <div class="snake-details">
           <h4 data-en="Common Krait" data-hi="मनयार / करैत" data-mr="मण्यार (Common Krait)">Common Krait</h4>
           <p>Bungarus caeruleus</p>
@@ -941,7 +941,7 @@
       </div>
 
       <div class="snake-card">
-        <img src="Snake%20Images/003_russell_s_viper.jpg" onerror="if(!this.dataset.t){this.dataset.t=1;this.src='public/Snake%20Images/003_russell_s_viper.jpg'}" alt="Russell's Viper">
+        <img src="public/Snake Images/003_russell_s_viper.jpg" alt="Russell's Viper">
         <div class="snake-details">
           <h4 data-en="Russell's Viper" data-hi="घोणस / रसेल वाइपर" data-mr="घोणस (Russell's Viper)">Russell's Viper</h4>
           <p>Daboia russelii</p>
@@ -950,7 +950,7 @@
       </div>
 
       <div class="snake-card">
-        <img src="Snake%20Images/004_saw_scaled_viper.jpg" onerror="if(!this.dataset.t){this.dataset.t=1;this.src='public/Snake%20Images/004_saw_scaled_viper.jpg'}" alt="Saw-scaled Viper">
+        <img src="public/Snake Images/004_saw_scaled_viper.jpg" alt="Saw-scaled Viper">
         <div class="snake-details">
           <h4 data-en="Saw-scaled Viper" data-hi="फुरसा / सॉ-स्केल्ड वाइपर" data-mr="फुरसे (Saw-scaled Viper)">Saw-scaled Viper</h4>
           <p>Echis carinatus</p>
@@ -959,7 +959,7 @@
       </div>
 
       <div class="snake-card">
-        <img src="Snake%20Images/046_common_rat_snake.jpg" onerror="if(!this.dataset.t){this.dataset.t=1;this.src='public/Snake%20Images/046_common_rat_snake.jpg'}" alt="Common Rat Snake">
+        <img src="public/Snake Images/046_common_rat_snake.jpg" alt="Common Rat Snake">
         <div class="snake-details">
           <h4 data-en="Common Rat Snake (Dhaman)" data-hi="धामन (रैट स्नेक)" data-mr="धामण (Common Rat Snake)">Common Rat Snake (Dhaman)</h4>
           <p>Ptyas mucosa</p>
@@ -968,7 +968,7 @@
       </div>
 
       <div class="snake-card">
-        <img src="Snake%20Images/047_green_vine_snake.jpg" onerror="if(!this.dataset.t){this.dataset.t=1;this.src='public/Snake%20Images/047_green_vine_snake.jpg'}" alt="Green Vine Snake">
+        <img src="public/Snake Images/047_green_vine_snake.jpg" alt="Green Vine Snake">
         <div class="snake-details">
           <h4 data-en="Green Vine Snake" data-hi="हरहरा / ग्रीन वाइन स्नेक" data-mr="हरणटोळ (Green Vine Snake)">Green Vine Snake</h4>
           <p>Ahaetulla nasuta</p>
@@ -1034,7 +1034,7 @@
         </div>
       </div>
 
-      <a href="./APK/Snake%20Bite%20Emergency%20App.apk" download="Snake_Bite_Emergency_App.apk" onclick="handleApkDownload(event, this)" class="btn-primary" style="width:100%; justify-content:center; padding:14px;">
+      <a href="./APK/Snake%20Bite%20Emergency%20App.apk" download="Snake_Bite_Emergency_App.apk" class="btn-primary" style="width:100%; justify-content:center; padding:14px;">
         📥 <span data-en="Start APK Download (115 MB)" data-hi="APK डाउनलोड शुरू करें (115 MB)" data-mr="APK डाउनलोड सुरू करा (115 MB)">Start APK Download (115 MB)</span>
       </a>
     </div>
@@ -1086,16 +1086,6 @@
 
     function closeDownloadModal() {
       document.getElementById('downloadModal').classList.remove('active');
-    }
-
-    function handleApkDownload(e, linkEl) {
-      fetch(linkEl.href, { method: 'HEAD' }).then(res => {
-        if (!res.ok) {
-          window.location.href = 'https://github.com/armaan-deshmukh/snake-bite-emergency-app-download/releases';
-        }
-      }).catch(() => {
-        window.location.href = 'https://github.com/armaan-deshmukh/snake-bite-emergency-app-download/releases';
-      });
     }
 
     window.onclick = function(e) {
