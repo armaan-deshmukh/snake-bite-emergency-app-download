@@ -1,0 +1,5 @@
+# Ignore large APK binary file (Exceeds GitHub's 100MB file limit)
+*.apk
+APK/
+public/APK/
+website/APK/
